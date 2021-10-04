@@ -1,0 +1,9 @@
+C:\Users\admin\Documents\projetosINACIO\sistemaCompra\Dao\obj\Debug\Dao.csprojAssemblyReference.cache
+C:\Users\admin\Documents\projetosINACIO\sistemaCompra\Dao\obj\Debug\Dao.csproj.CoreCompileInputs.cache
+C:\Users\admin\Documents\projetosINACIO\sistemaCompra\Dao\bin\Debug\Dao.dll
+C:\Users\admin\Documents\projetosINACIO\sistemaCompra\Dao\bin\Debug\Dao.pdb
+C:\Users\admin\Documents\projetosINACIO\sistemaCompra\Dao\bin\Debug\Model.dll
+C:\Users\admin\Documents\projetosINACIO\sistemaCompra\Dao\bin\Debug\Model.pdb
+C:\Users\admin\Documents\projetosINACIO\sistemaCompra\Dao\obj\Debug\Dao.csproj.CopyComplete
+C:\Users\admin\Documents\projetosINACIO\sistemaCompra\Dao\obj\Debug\Dao.dll
+C:\Users\admin\Documents\projetosINACIO\sistemaCompra\Dao\obj\Debug\Dao.pdb
