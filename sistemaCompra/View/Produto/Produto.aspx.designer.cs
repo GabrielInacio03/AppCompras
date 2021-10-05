@@ -7,11 +7,11 @@
 // </gerado automaticamente>
 //------------------------------------------------------------------------------
 
-namespace sistemaCompra.View.Cliente
+namespace sistemaCompra.View.Produto
 {
 
 
-    public partial class Cliente
+    public partial class Produto
     {
 
         /// <summary>
@@ -24,49 +24,31 @@ namespace sistemaCompra.View.Cliente
         protected global::System.Web.UI.WebControls.Label campo1;
 
         /// <summary>
-        /// Controle campoTexto1.
+        /// Controle descricao.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox campoTexto1;
+        protected global::System.Web.UI.WebControls.TextBox descricao;
 
         /// <summary>
-        /// Controle Label2.
+        /// Controle campo2.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label campo2;
 
         /// <summary>
-        /// Controle campoTexto2.
+        /// Controle valor.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox campoTexto2;
-
-        /// <summary>
-        /// Controle Label3.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
-
-        /// <summary>
-        /// Controle campoTexto3.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox campoTexto3;
+        protected global::System.Web.UI.WebControls.TextBox valor;
 
         /// <summary>
         /// Controle LabelErro.
@@ -78,12 +60,12 @@ namespace sistemaCompra.View.Cliente
         protected global::System.Web.UI.WebControls.Label LabelErro;
 
         /// <summary>
-        /// Controle enviar.
+        /// Controle adicionar.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button enviar;
+        protected global::System.Web.UI.WebControls.Button adicionar;
     }
 }

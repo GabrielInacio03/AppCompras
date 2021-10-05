@@ -7,10 +7,9 @@ using Model;
 
 namespace Dao
 {
-    class ItemCompra
+    public class ItemCompra
     {
-        public void insert(ItemCompra ItemCompra) { }
-        public void update(ItemCompra ItemCompra, int id) { }
-        public void delete(ItemCompra ItemCompra, int id) { }
+        public void Insert(ItemCompra ItemCompra) { }
+        public void Update(ItemCompra ItemCompra, int id) { }       
     }
 }
