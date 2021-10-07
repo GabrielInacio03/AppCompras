@@ -11,7 +11,7 @@ namespace Model
         public int Id { get; set; }
         public string Data { get; set; }
         public float ValorTot { get; set; }
-        public int codCliente { get; set; }
+        public int CodCliente { get; set; }
 
     }
 }

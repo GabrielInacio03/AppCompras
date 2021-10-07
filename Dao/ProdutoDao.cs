@@ -27,7 +27,64 @@ namespace Dao
 
             sql.ExecuteNonQuery();
             conexao.Close();
+        }        
+        public List<Produto> Read()
+        {
+            SqlConnection conexao = new SqlConnection(CONNECTION_STRING);
+            conexao.Open();
+
+            SqlCommand sql = conexao.CreateCommand();
+            sql.CommandText = "SELECT * FROM Produto";
+            sql.CommandType = System.Data.CommandType.Text;
+
+            List<Produto> produtos = new List<Produto>();
+
+            using (SqlDataReader reader = sql.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Produto p = new Produto();
+                    p.Id = (int)reader["codigo"];
+                    p.Descricao = reader["descricao"].ToString();
+                    p.Valor = float.Parse(reader["valor"].ToString());
+                    produtos.Add(p);
+                }
+            }
+            conexao.Close();
+            return produtos;
         }
-        public void Update(Produto produto, int id) { }     
+        public Produto BuscarPorId(int id)
+        {
+            SqlConnection conexao = new SqlConnection(CONNECTION_STRING);
+            conexao.Open();
+            Produto produto = new Produto();
+            SqlCommand sql = conexao.CreateCommand();
+            sql.CommandText = "PROC_S_BuscarProdutoPorCodigo";
+            sql.Parameters.AddWithValue("@id", id);
+            sql.CommandType = System.Data.CommandType.StoredProcedure;
+
+            using (SqlDataReader reader = sql.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    produto.Id = (int)reader["codigo"];
+                    produto.Descricao = reader["descricao"].ToString();
+                    produto.Valor = float.Parse(reader["valor"].ToString());                    
+
+                }
+            }
+            conexao.Close();
+            return produto;
+        }
+
+        public void Update(Produto produto, int id)
+        {
+            SqlConnection conexao = new SqlConnection(CONNECTION_STRING);
+            conexao.Open();
+
+            SqlCommand sql = conexao.CreateCommand();
+            //sql.CommandText = "UPDATE cliente SET  nome='" + @nome + "' WHERE codigo='@id'";
+            sql.CommandType = System.Data.CommandType.Text;
+        }
     }
 }

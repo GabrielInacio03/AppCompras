@@ -13,6 +13,9 @@ namespace Model
         public int CodProduto { get; set; }
         public int Qtd { get; set; }
         public float SubTotal { get; set; }
+
+        public string nomeProd { get; set; }    
+        public float valorProd { get; set; }
        
         
     }

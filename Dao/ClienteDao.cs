@@ -36,8 +36,7 @@ namespace Dao
 
                 throw;
             }
-        }
-
+        }       
         public List<Cliente> Read()
         {
             SqlConnection conexao = new SqlConnection(CONNECTION_STRING);
@@ -50,12 +49,13 @@ namespace Dao
             List<Cliente> clientes = new List<Cliente>();
 
             using (SqlDataReader reader = sql.ExecuteReader())
-            {
+            {                
                 while (reader.Read())
                 {
                     Cliente c = new Cliente();
+                    c.Id = (int)reader["codigo"];
                     c.Nome = reader["nome"].ToString();
-                    c.DataNasc = reader["datanasc"].ToString();
+                    c.DataNasc = DateTime.Parse(reader["datanasc"].ToString()).ToString("dd-MM-yyyy");
                     c.Endereco = reader["endereco"].ToString();
 
                     clientes.Add(c);
@@ -65,7 +65,17 @@ namespace Dao
             conexao.Close();
             return clientes;
         }
+        public void Update(Cliente cliente, int id)
+        {
+            SqlConnection conexao = new SqlConnection(CONNECTION_STRING);
+            conexao.Open();
 
-        public void Update(Cliente cliente, int id) { }       
+            SqlCommand sql = conexao.CreateCommand();
+            //sql.CommandText = "UPDATE cliente SET  nome='" + @nome + "' WHERE codigo='@id'";
+            sql.CommandType = System.Data.CommandType.Text;
+
+
+            conexao.Close();
+        }       
     }
 }

@@ -32,12 +32,12 @@ namespace Controller
                 throw;
             }
         }
-        public void BuscarTodos(Cliente c)
+        public List<Cliente> BuscarTodos()
         {
             try
             {
                 ClienteDao cdao = new ClienteDao();
-                cdao.Read(c);
+                return cdao.Read();                
             }
             catch (Exception)
             {

@@ -10,6 +10,11 @@ namespace Controller
 {
     public class ProdutoController
     {
+        private bool Validar(Produto p)
+        {
+            //return n1.Nome != null;
+            return !string.IsNullOrEmpty(p.Descricao);
+        }
         public void Salvar(Produto p)
         {
             try
@@ -27,10 +32,24 @@ namespace Controller
                 throw;
             }
         }
-        private bool Validar(Produto p)
+        public List<Produto> BuscarTodos()
         {
-            //return n1.Nome != null;
-            return !string.IsNullOrEmpty(p.Descricao);
+            try
+            {
+                ProdutoDao pdao = new ProdutoDao();
+                return pdao.Read();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
+        public Produto BuscarPorId(int id)
+        {
+            ProdutoDao pdao = new ProdutoDao();
+            return pdao.BuscarPorId(id);            
+        }
+
     }
 }

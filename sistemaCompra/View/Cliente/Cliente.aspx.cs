@@ -13,7 +13,22 @@ namespace sistemaCompra.View.Cliente
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            try
+            {
+                
 
+                List<Model.Cliente> clientes = new List<Model.Cliente>();
+                ClienteController controlador = new ClienteController();
+                clientes = controlador.BuscarTodos();
+
+                repeaterList.DataSource = clientes;
+                repeaterList.DataBind();
+            }
+            catch (Exception erro)
+            {
+
+                LabelErro.Text = erro.Message;
+            }
         }
 
         protected void enviar_Click(object sender, EventArgs e)
@@ -34,5 +49,6 @@ namespace sistemaCompra.View.Cliente
             }
 
         }
+
     }
 }

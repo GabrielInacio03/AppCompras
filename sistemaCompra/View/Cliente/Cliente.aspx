@@ -16,5 +16,38 @@
     <br />    
     <asp:Label runat="server" ID="LabelErro" class="alert-danger"/> 
     <br />
-    <asp:Button Text="Enviar" runat="server" ID="enviar" OnClick="enviar_Click" class="btn btn-success"/>                        
+    <asp:Button Text="Enviar" runat="server" ID="enviar" OnClick="enviar_Click" class="btn btn-success"/> 
+    <asp:Button Text="Reset" runat="server" ID="reset" type="reset" class="btn btn-danger"/>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="col-md-1">#</th>
+                <th class="col-md-3">Nome</th>
+                <th class="col-md-3">Endereço</th>
+                <th class="col-md-1">Data de Nascimento</th>               
+                <th class="col-md-1">Editar</th>
+                <th class="col-md-1">Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            <asp:Repeater runat="server" ID="repeaterList">
+                <ItemTemplate>
+                    <tr>
+                        <td class="col-md-1"><%# Eval("Id") %></td>
+                        <td class="col-md-3"><%# Eval("Nome") %></td>
+                        <td class="col-md-2"><%# Eval("Endereco") %></td>
+                        <td class="col-md-2"><%# Eval("DataNasc") %></td>                       
+                        <td class="col-md-1">
+                            <a class="btn btn-primary" href="#">Editar</a>                            
+                        </td>
+                        <td class="col-md-1">
+                            <a class="btn btn-danger" href="#">Excluir</a>                               
+                        </td>
+                    </tr>
+                </ItemTemplate>
+            </asp:Repeater>
+        </tbody>
+       
+    </table>
 </asp:Content>
