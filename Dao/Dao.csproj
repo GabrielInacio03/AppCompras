@@ -44,7 +44,7 @@
     <Compile Include="ClienteDao.cs" />
     <Compile Include="CompraDao.cs" />
     <Compile Include="Dao.cs" />
-    <Compile Include="ItemCompra.cs" />
+    <Compile Include="ItemCompraDao.cs" />
     <Compile Include="ProdutoDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

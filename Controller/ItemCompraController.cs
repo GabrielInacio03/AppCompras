@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Controller
 {
-    public class CompraController
-    {      
-        public int Salvar(Model.Compra c)
+    public class ItemCompraController
+    {
+        public void Salvar(Model.ItemCompra i)
         {
             try
             {
-                CompraDao compraDao = new CompraDao();
-                return compraDao.Insert(c);
+                ItemCompraDao itemDao = new ItemCompraDao();
+                itemDao.Insert(i);
             }
             catch (Exception)
             {

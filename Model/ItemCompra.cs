@@ -9,14 +9,15 @@ namespace Model
     public class ItemCompra
     {
         public int Id { get; set; }
+        public Guid GuidCod { get; set; }
         public int CodCompra { get; set; }
         public int CodProduto { get; set; }
         public int Qtd { get; set; }
         public float SubTotal { get; set; }
 
-        public string nomeProd { get; set; }    
-        public float valorProd { get; set; }
-       
+        public string NomeProd { get; set; }    
+        public float ValorProd { get; set; }   
+      
         
     }
 }

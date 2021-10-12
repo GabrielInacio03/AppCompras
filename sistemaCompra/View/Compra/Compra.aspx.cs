@@ -56,7 +56,31 @@ namespace sistemaCompra.View.Compra
                 throw;
             }
         }
+        protected List<Model.Compra> ListaDeCompras()
+        {
+            try
+            {
+                List<Model.Compra> lCompra = new List<Model.Compra>();
 
+                foreach (RepeaterItem item in RepeaterCentral.Items)
+                {
+                    Model.Compra c = new Model.Compra();
+
+                    c.Id = int.Parse(((Label)item.FindControl("lbCodigo")).Text);
+                    c.CodCliente = int.Parse(((Label)item.FindControl("lbCodigoCliente")).Text);
+                    c.Data = ((Label)item.FindControl("lbData")).Text;
+                    c.ValorTot = float.Parse(((Label)item.FindControl("lbValor")).Text);
+                    lCompra.Add(c);
+                  
+                }
+                return lCompra;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         protected List<ItemCompra> ListaItens()
         {
             try
@@ -66,12 +90,15 @@ namespace sistemaCompra.View.Compra
                 foreach (RepeaterItem item in repeaterItens.Items)
                 {
                     ItemCompra i = new ItemCompra();
-                    Label labelCodigo = (Label)item.FindControl("lbCodigo");
-                    i.Id = int.Parse(labelCodigo.Text);
+                    //Label labelCodigo = (Label)item.FindControl("lbCodigo");
+                    //i.Id = int.Parse(labelCodigo.Text);
 
+                    i.GuidCod = Guid.Parse(((Label)item.FindControl("lbCodigo")).Text);                    
                     i.CodProduto = int.Parse(((Label)item.FindControl("lbCodProduto")).Text);
-                    i.nomeProd = ((Label)item.FindControl("lbDescricao")).Text;
-
+                    i.NomeProd = ((Label)item.FindControl("lbDescricao")).Text;
+                    i.ValorProd = float.Parse(((Label)item.FindControl("lbValor")).Text);
+                    i.Qtd = int.Parse(((Label)item.FindControl("lbQtd")).Text);
+                    i.SubTotal = float.Parse(((Label)item.FindControl("lbSubTotal")).Text);                   
                     listaItens.Add(i);
                 }
                 return listaItens;
@@ -89,17 +116,22 @@ namespace sistemaCompra.View.Compra
               
                 List<ItemCompra> itens = ListaItens();
                 ItemCompra item = new ItemCompra();
-                Model.Produto produto = new Model.Produto();
-                
+                Model.Compra compra = new Model.Compra();
 
+                Model.Produto produto = new Model.Produto();
+                Guid g = Guid.NewGuid();
+
+                item.GuidCod = g;
                 item.CodProduto = int.Parse(ddlproduto.SelectedValue);                
-                item.nomeProd = ddlproduto.SelectedItem.Text;
-                item.valorProd = BuscarValor(item.CodProduto);
-                item.Qtd = int.Parse(qtds.Text);                                
-                itens.Add(item);                               
-               
+                item.NomeProd = ddlproduto.SelectedItem.Text;
+                item.ValorProd = BuscarValor(item.CodProduto);
+                item.Qtd = int.Parse(qtds.Text);
+                item.SubTotal = item.ValorProd * item.Qtd;
+                compra.ValorTot = itens.Sum(x => x.SubTotal + compra.ValorTot);
+                itens.Add(item); 
+                
                 repeaterItens.DataSource = itens;                
-                repeaterItens.DataBind();               
+                repeaterItens.DataBind();
 
             }
             catch (Exception erro)
@@ -113,11 +145,34 @@ namespace sistemaCompra.View.Compra
             try
             {
                 Model.Compra compra = new Model.Compra();
-                DateTime diAtual = DateTime.Today;
-                compra.Data = diAtual.ToString();
-                compra.CodCliente = int.Parse(ddlcliente.SelectedValue);
-                //compra.ValorTot = float.Parse(dllproduto.SelectedValue);
-                
+                ItemCompra itensCompras = new ItemCompra();
+                compra.CodCliente = int.Parse(ddlcliente.SelectedValue);             
+                compra.Data = DateTime.Now.ToString("dd-MM-yyyy");
+
+                List<ItemCompra> itens = ListaItens();
+                List<Model.Compra> listaCompras = ListaDeCompras();
+
+                compra.ValorTot = itens.Select(x => x.SubTotal).Sum();
+
+                listaCompras.Add(compra);
+                RepeaterCentral.DataSource = listaCompras;
+                RepeaterCentral.DataBind();
+                //chamando Controller
+                CompraController ctrCompra = new CompraController();
+                int r = ctrCompra.Salvar(compra);
+                           
+
+
+                itensCompras.CodCompra = r;
+                itensCompras.CodProduto = ddlproduto.SelectedIndex;
+                itensCompras.Qtd = int.Parse(qtds.Text);
+                itensCompras.ValorProd = 7;
+                itensCompras.SubTotal = itensCompras.ValorProd * itensCompras.Qtd;
+
+                ItemCompraController ctrItem = new ItemCompraController();
+                ctrItem.Salvar(itensCompras);
+
+               
             }
             catch (Exception erro)
             {
@@ -126,5 +181,7 @@ namespace sistemaCompra.View.Compra
             
 
         }
+
+       
     }
 }

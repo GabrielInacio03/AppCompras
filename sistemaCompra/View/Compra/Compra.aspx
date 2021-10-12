@@ -23,55 +23,87 @@
 
     <br />
 
-    <hr />   
-    <h2>Itens da Compra</h2>
-    
-    <table class="table">
-        <thead>
-            <tr>
-                <th class="col-md-1">#</th>
-                <td class="col-md-1">Código</td>
-                <th class="col-md-9">Descrição</th>
-                <th class="col-md-2">Valor</th>
-                <th class="col-md-2">Quantidade</th>
-                <th class="col-md-2">SubTotal</th>
-            </tr>
-        </thead>
-        <tbody>                            
-        <asp:repeater runat="server" ID="repeaterItens">
-            <itemtemplate>
+    <hr />    
+   
+        <h2>Itens da Compra</h2>                     
+            <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                         <asp:label text='<%# Eval("Id") %>' runat="server" ID="lbCodigo"></asp:label>
-                    </td>  
-                    <td class="col-md-3">
-                        <asp:label text='<%# Eval("CodProduto") %>' runat="server" ID="lbCodProduto"/>
-                    </td>
-                    <td class="col-md-3">
-                        <asp:label text='<%# Eval("nomeProd") %>' runat="server" ID="lbDescricao"/>
-                    </td>
-                    <td class="col-md-1">
-                        <asp:label text='<%# Eval("valorProd") %>' runat="server" ID="lbValor"/>
-                    </td>                                                                             
-                    <td class="col-md-1">
-                        <asp:label text='<%# Eval("Qtd") %>' runat="server" ID="lbQtd"/>  
-                    </td>
-                    <td class="col-md-2">
-                        <asp:label text='<%# Eval("SubTotal") %>' runat="server" ID="lbSubTotal"/>
-                    </td>
+                    <th class="col-md-1">#</th>
+                    <td class="col-md-1">Código</td>
+                    <th class="col-md-9">Descrição</th>
+                    <th class="col-md-2">Valor</th>
+                    <th class="col-md-2">Quantidade</th>
+                    <th class="col-md-2">SubTotal</th>
                 </tr>
-            </itemtemplate>
-        </asp:repeater>
+            </thead>
+            <tbody>                            
+            <asp:repeater runat="server" ID="repeaterItens">
+                <itemtemplate>
+                    <tr>
+                        <td>
+                             <asp:label text='<%# Eval("GuidCod") %>' runat="server" ID="lbCodigo"></asp:label>
+                        </td>  
+                        <td class="col-md-3">
+                            <asp:label text='<%# Eval("CodProduto") %>' runat="server" ID="lbCodProduto"/>
+                        </td>
+                        <td class="col-md-3">
+                            <asp:label text='<%# Eval("nomeProd") %>' runat="server" ID="lbDescricao"/>
+                        </td>
+                        <td class="col-md-1">
+                            <asp:label text='<%# Eval("valorProd") %>' runat="server" ID="lbValor"/>
+                        </td>                                                                             
+                        <td class="col-md-1">
+                            <asp:label text='<%# Eval("Qtd") %>' runat="server" ID="lbQtd"/>  
+                        </td>
+                        <td class="col-md-2">
+                            <asp:label text='<%# Eval("SubTotal") %>' runat="server" ID="lbSubTotal"/>
+                        </td>
+                    </tr>                   
+
+                </itemtemplate>   
+                
+            </asp:repeater>                 
             <tfoot>
+                       <tr>
+                           <td>
+                               <asp:Button Text="Finalizar" runat="server" Onclick="finalizar_click" ID="finalizar" class="btn btn-primary"/>
+                           </td>
+                       </tr>
+                   </tfoot>
+            </tbody>                
+        </table>          
+              
+        <hr />        
+        <h2>Compras Realizadas</h2>                                  
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        Valor Total: R$00,00
-                    </td>
-                    <td>
-                        <asp:button text="Finalizar" runat="server" class="btn btn-primary" ID="finalizar" Onclick="finalizar_click"/>
-                    </td>
+                    <th>#</th>
+                    <th>#Cliente</th>
+                    <th>Data da Compra</th>
+                    <th>Valor Total</th>                    
                 </tr>
-            </tfoot>            
-        </tbody>
-    </table>          
+            </thead>
+            <tbody>
+                <asp:Repeater runat="server" ID="RepeaterCentral">
+                    <ItemTemplate>
+                        <tr>
+                            <td>
+                                <asp:label text='<%# Eval("Id") %>' runat="server" ID="lbCodigo"></asp:label>
+                            </td>  
+                            <td>
+                                <asp:label text='<%# Eval("CodCliente") %>' runat="server" ID="lbCodigoCliente"></asp:label>
+                            </td>  
+                            <td>
+                                <asp:label text='<%# Eval("Data") %>' runat="server" ID="lbData"></asp:label>
+                            </td> 
+                            <td>
+                                <asp:label text='<%# Eval("ValorTot") %>' runat="server" ID="lbValor"></asp:label>
+                            </td> 
+                        </tr>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </tbody>
+        </table>            
 </asp:Content>
