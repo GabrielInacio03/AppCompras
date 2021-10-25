@@ -35,7 +35,7 @@ namespace sistemaCompra.View.Compra
                 ddlcliente.DataSource = clientes;
                 ddlcliente.DataBind();
 
-                
+              
 
             }
            
@@ -70,6 +70,7 @@ namespace sistemaCompra.View.Compra
                     c.CodCliente = int.Parse(((Label)item.FindControl("lbCodigoCliente")).Text);
                     c.Data = ((Label)item.FindControl("lbData")).Text;
                     c.ValorTot = float.Parse(((Label)item.FindControl("lbValor")).Text);
+                    c.Ativo = int.Parse(((Label)item.FindControl("lbAtivo")).Text);
                     lCompra.Add(c);
                   
                 }
@@ -98,7 +99,8 @@ namespace sistemaCompra.View.Compra
                     i.NomeProd = ((Label)item.FindControl("lbDescricao")).Text;
                     i.ValorProd = float.Parse(((Label)item.FindControl("lbValor")).Text);
                     i.Qtd = int.Parse(((Label)item.FindControl("lbQtd")).Text);
-                    i.SubTotal = float.Parse(((Label)item.FindControl("lbSubTotal")).Text);                   
+                    i.SubTotal = float.Parse(((Label)item.FindControl("lbSubTotal")).Text);
+                    i.Ativo = int.Parse(((Label)item.FindControl("lbAtivo")).Text);
                     listaItens.Add(i);
                 }
                 return listaItens;
@@ -127,6 +129,7 @@ namespace sistemaCompra.View.Compra
                 item.ValorProd = BuscarValor(item.CodProduto);
                 item.Qtd = int.Parse(qtds.Text);
                 item.SubTotal = item.ValorProd * item.Qtd;
+                item.Ativo = 1;
                 compra.ValorTot = itens.Sum(x => x.SubTotal + compra.ValorTot);
                 itens.Add(item); 
                 
@@ -144,35 +147,32 @@ namespace sistemaCompra.View.Compra
         {
             try
             {
+                List<ItemCompra> itens = ListaItens();
+                List<Model.Compra> listaCompras = ListaDeCompras();
                 Model.Compra compra = new Model.Compra();
                 ItemCompra itensCompras = new ItemCompra();
                 compra.CodCliente = int.Parse(ddlcliente.SelectedValue);             
                 compra.Data = DateTime.Now.ToString("dd-MM-yyyy");
+                compra.listaItens = itens;               
+                compra.ValorTot = itens.Select(x => x.SubTotal).Sum();               
 
-                List<ItemCompra> itens = ListaItens();
-                List<Model.Compra> listaCompras = ListaDeCompras();
-
-                compra.ValorTot = itens.Select(x => x.SubTotal).Sum();
-
-                listaCompras.Add(compra);
-                RepeaterCentral.DataSource = listaCompras;
-                RepeaterCentral.DataBind();
-                //chamando Controller
-                CompraController ctrCompra = new CompraController();
-                int r = ctrCompra.Salvar(compra);
-                           
+                listaCompras.Add(compra);               
 
 
-                itensCompras.CodCompra = r;
                 itensCompras.CodProduto = ddlproduto.SelectedIndex;
                 itensCompras.Qtd = int.Parse(qtds.Text);
-                itensCompras.ValorProd = 7;
-                itensCompras.SubTotal = itensCompras.ValorProd * itensCompras.Qtd;
+                itensCompras.ValorProd = BuscarValor(itensCompras.CodProduto);
+                itensCompras.SubTotal = itensCompras.ValorProd * itensCompras.Qtd;                
 
-                ItemCompraController ctrItem = new ItemCompraController();
-                ctrItem.Salvar(itensCompras);
 
-               
+                //chamando Controller
+                CompraController ctrCompra = new CompraController();
+                ctrCompra.Salvar(compra);
+
+
+                RepeaterCentral.DataSource = listaCompras;
+                RepeaterCentral.DataBind();
+
             }
             catch (Exception erro)
             {
@@ -181,7 +181,25 @@ namespace sistemaCompra.View.Compra
             
 
         }
-
        
+        protected void repeaterItens_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            try
+            {
+                List<Model.ItemCompra> listaItem = ListaItens();
+                Model.ItemCompra item = new Model.ItemCompra();
+                string guidp = e.CommandArgument.ToString();
+                item = listaItem.Where(x => x.GuidCod.ToString() == guidp).FirstOrDefault();                               
+                listaItem.Remove(item);
+
+                repeaterItens.DataSource = listaItem;
+                repeaterItens.DataBind();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

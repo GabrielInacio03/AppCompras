@@ -21,23 +21,19 @@
             <tr>
                 <th>#</th>
                 <th>Descricao</th>  
-                <th>Valor</th>
-                <th class="col-md-1">Editar</th>
+                <th>Valor</th>                
                 <th class="col-md-1">Excluir</th>
             </tr>
         </thead>
         <tbody>
-            <asp:Repeater runat="server" ID="repeaterList">
+            <asp:Repeater runat="server" ID="repeaterList" OnItemCommand="repeaterList_ItemCommand">
                 <ItemTemplate>
                     <tr>
                         <td><%# Eval("Id") %></td>
                         <td><%# Eval("Descricao") %></td>
-                        <td><%# Eval("valor", "{0:c}") %></td>
-                         <td class="col-md-1">
-                            <a class="btn btn-primary" href="#">Editar</a>                            
-                        </td>
+                        <td><%# Eval("valor", "{0:c}") %></td>                       
                         <td class="col-md-1">
-                            <a class="btn btn-danger" href="#">Excluir</a>                               
+                            <asp:LinkButton Text="Excluir" runat="server" CommandArgument='<%# Eval("Id") %>' ID="excluir" CommandName="excluir" CssClass="btn btn-danger"/>                        
                         </td>
                     </tr>
                 </ItemTemplate>

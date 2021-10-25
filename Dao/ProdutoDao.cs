@@ -16,14 +16,14 @@ namespace Dao
             conexao.Open();
 
             SqlCommand sql = conexao.CreateCommand();
-            sql.CommandText = "Insert Into Produto(descricao, valor) VALUES (@descricao, @valor)";
+            sql.CommandText = "PROC_I_InserirProduto";
             sql.CommandType = System.Data.CommandType.Text;
 
             SqlParameter param = new SqlParameter();
-            param.Value = produto.Descricao;
-            param.ParameterName = "@descricao";
-            sql.Parameters.Add(param);
+            sql.Parameters.Add(new SqlParameter("@descricao", produto.Descricao));
             sql.Parameters.Add(new SqlParameter("@valor", produto.Valor));
+            sql.Parameters.Add(new SqlParameter("@ativo", produto.Ativo));
+            sql.CommandType = System.Data.CommandType.StoredProcedure;
 
             sql.ExecuteNonQuery();
             conexao.Close();
@@ -34,7 +34,7 @@ namespace Dao
             conexao.Open();
 
             SqlCommand sql = conexao.CreateCommand();
-            sql.CommandText = "SELECT * FROM Produto";
+            sql.CommandText = "PROC_S_BuscarTodosProduto";
             sql.CommandType = System.Data.CommandType.Text;
 
             List<Produto> produtos = new List<Produto>();
@@ -47,11 +47,39 @@ namespace Dao
                     p.Id = (int)reader["codigo"];
                     p.Descricao = reader["descricao"].ToString();
                     p.Valor = float.Parse(reader["valor"].ToString());
-                    produtos.Add(p);
+                    p.Ativo = reader["ativo"].ToString() != null ? int.Parse(reader["ativo"].ToString()) : p.Ativo;
+                    if (p.Ativo == 1)
+                    {
+                        p.AtivoString = "Ativo";
+                        produtos.Add(p);
+                    }
+                    
                 }
             }
             conexao.Close();
             return produtos;
+        }
+        public void Delete(int id)
+        {
+            try
+            {
+                SqlConnection conexao = new SqlConnection(CONNECTION_STRING);
+                conexao.Open();
+
+                SqlCommand sql = conexao.CreateCommand();
+                SqlParameter param = new SqlParameter();
+                sql.CommandText = "PROC_D_DeletarProduto";
+                sql.Parameters.AddWithValue("@id", id);
+                sql.CommandType = System.Data.CommandType.StoredProcedure;
+
+                sql.ExecuteNonQuery();
+                conexao.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         public Produto BuscarPorId(int id)
         {

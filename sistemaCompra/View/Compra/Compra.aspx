@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">   
-    <h1 class="text-center">Comprar</h1>    
+    <h1 class="text-center">Realizar sua Compra</h1>    
         
     <asp:label text="Clientes: " runat="server" class="form-label"/>
     <asp:DropDownList runat="server" ID="ddlcliente" class="form-select" DataTextField="nome" DataValueField="Id">       
@@ -31,23 +31,25 @@
                 <tr>
                     <th class="col-md-1">#</th>
                     <td class="col-md-1">Código</td>
-                    <th class="col-md-9">Descrição</th>
-                    <th class="col-md-2">Valor</th>
-                    <th class="col-md-2">Quantidade</th>
-                    <th class="col-md-2">SubTotal</th>
+                    <th class="col-md-5">Descrição</th>
+                    <th class="col-md-1">Valor</th>
+                    <th class="col-md-1">Quantidade</th>
+                    <th class="col-md-1">SubTotal</th>
+                    <th class="col-md-1">Status</th>                    
+                    <th class="col-md-1">Ação</th>
                 </tr>
             </thead>
             <tbody>                            
-            <asp:repeater runat="server" ID="repeaterItens">
+            <asp:repeater runat="server" ID="repeaterItens" OnItemCommand="repeaterItens_ItemCommand">
                 <itemtemplate>
                     <tr>
-                        <td>
+                        <td class="col-md-1">
                              <asp:label text='<%# Eval("GuidCod") %>' runat="server" ID="lbCodigo"></asp:label>
                         </td>  
-                        <td class="col-md-3">
+                        <td class="col-md-1">
                             <asp:label text='<%# Eval("CodProduto") %>' runat="server" ID="lbCodProduto"/>
                         </td>
-                        <td class="col-md-3">
+                        <td class="col-md-5">
                             <asp:label text='<%# Eval("nomeProd") %>' runat="server" ID="lbDescricao"/>
                         </td>
                         <td class="col-md-1">
@@ -56,9 +58,17 @@
                         <td class="col-md-1">
                             <asp:label text='<%# Eval("Qtd") %>' runat="server" ID="lbQtd"/>  
                         </td>
-                        <td class="col-md-2">
+                        <td class="col-md-1">
                             <asp:label text='<%# Eval("SubTotal") %>' runat="server" ID="lbSubTotal"/>
                         </td>
+                        <td class="col-md-1">
+                            <asp:label text='<%# Eval("Ativo") %>' runat="server" ID="lbAtivo"/>
+                        </td>
+                       
+                        <td>
+                            <asp:LinkButton Text="Excluir" runat="server" CommandArgument='<%# Eval("GuidCod") %>' ID="excluir" CommandName="excluir" CssClass="btn btn-danger"/>                           
+                        </td>
+                        
                     </tr>                   
 
                 </itemtemplate>   
@@ -75,14 +85,15 @@
         </table>          
               
         <hr />        
-        <h2>Compras Realizadas</h2>                                  
+        <h2>Compra Realizada</h2>                                  
         <table class="table">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>#Cliente</th>
                     <th>Data da Compra</th>
-                    <th>Valor Total</th>                    
+                    <th>Valor Total</th>  
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -100,6 +111,9 @@
                             </td> 
                             <td>
                                 <asp:label text='<%# Eval("ValorTot") %>' runat="server" ID="lbValor"></asp:label>
+                            </td> 
+                            <td>
+                                <asp:label text='<%# Eval("Ativo") %>' runat="server" ID="lbAtivo"></asp:label>
                             </td> 
                         </tr>
                     </ItemTemplate>

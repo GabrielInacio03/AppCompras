@@ -17,7 +17,9 @@ namespace Model
 
         public string NomeProd { get; set; }    
         public float ValorProd { get; set; }   
-      
-        
+        public int Ativo { get; set; }       
+        public string AtivoString { get; set; }
+
+
     }
 }

@@ -12,6 +12,10 @@ namespace Model
         public string Data { get; set; }
         public float ValorTot { get; set; }
         public int CodCliente { get; set; }
+        public string NomeCliente { get; set; }
+        public List<ItemCompra> listaItens { get; set; }
+        public int Ativo { get; set; }
+        public string AtivoString { get; set; }
 
     }
 }

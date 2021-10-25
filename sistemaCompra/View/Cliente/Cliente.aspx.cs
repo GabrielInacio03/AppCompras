@@ -39,6 +39,7 @@ namespace sistemaCompra.View.Cliente
                 n1.Nome = campoTexto1.Text;
                 n1.Endereco = campoTexto2.Text;
                 n1.DataNasc = campoTexto3.Text;
+                n1.Ativo = 1;
 
                 ClienteController ctr = new ClienteController();
                 ctr.Salvar(n1);
@@ -48,7 +49,33 @@ namespace sistemaCompra.View.Cliente
                 LabelErro.Text = erro.Message;                
             }
 
+        }       
+
+        protected void Excluir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Button b = new Button();
+                int id = int.Parse(b.CommandName);
+
+                ClienteController ctr = new ClienteController();
+                ctr.Excluir(id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
+        protected void repeaterList_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            Model.Cliente cliente = new Model.Cliente();
+            ClienteController ctr = new ClienteController();
+
+            string id = e.CommandArgument.ToString();
+
+            ctr.Excluir(int.Parse(id));
+        }
     }
 }

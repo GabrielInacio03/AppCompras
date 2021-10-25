@@ -36,9 +36,15 @@
                             </li>                        
                             <li class="nav-item">
                                 <a class="nav-link" href="../Produto/Produto.aspx">Produtos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="../Compra/Compra.aspx">Compras</a>
+                            </li>                           
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Compra
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="../Compra/Compra.aspx">Realizar Compra</a></li>
+                                    <li><a class="dropdown-item" href="../Compra/CompraView.aspx">Listar Compras</a></li>                                                                        
+                                </ul>
                             </li>
                         </ul>
                     </div>

@@ -36,6 +36,7 @@ namespace sistemaCompra.View.Produto
                 Model.Produto p = new Model.Produto();
                 p.Descricao = descricao.Text;
                 p.Valor = float.Parse(valor.Text);
+                p.Ativo = 1;
 
                 ProdutoController ctr = new ProdutoController();
                 ctr.Salvar(p);
@@ -46,6 +47,16 @@ namespace sistemaCompra.View.Produto
                 LabelErro.Text = erro.Message;
             }
 
+        }
+
+        protected void repeaterList_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            Model.Produto cliente = new Model.Produto();
+            ProdutoController ctr = new ProdutoController();
+
+            string id = e.CommandArgument.ToString();
+
+            ctr.Excluir(int.Parse(id));
         }
     }
 }

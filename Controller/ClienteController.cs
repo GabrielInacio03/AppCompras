@@ -32,12 +32,28 @@ namespace Controller
                 throw;
             }
         }
+        public void Excluir(int id)
+        {
+            try
+            {
+                ClienteDao cdao = new ClienteDao();
+                cdao.Delete(id);
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public List<Cliente> BuscarTodos()
         {
             try
             {
                 ClienteDao cdao = new ClienteDao();
-                return cdao.Read();                
+                List<Model.Cliente> clientes = new List<Model.Cliente>();
+                clientes = cdao.Read();
+                return clientes;
             }
             catch (Exception)
             {
@@ -45,6 +61,10 @@ namespace Controller
                 throw;
             }            
         }
-            
+        public Cliente BuscarPorId(int id)
+        {
+            ClienteDao cdao = new ClienteDao();
+            return cdao.BuscarPorId(id);
+        }
     }
 }

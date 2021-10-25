@@ -50,6 +50,20 @@ namespace Controller
             ProdutoDao pdao = new ProdutoDao();
             return pdao.BuscarPorId(id);            
         }
+        public void Excluir(int id)
+        {
+            try
+            {
+                ProdutoDao pdao = new ProdutoDao();
+                pdao.Delete(id);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
     }
 }

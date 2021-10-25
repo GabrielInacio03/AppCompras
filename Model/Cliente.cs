@@ -12,6 +12,7 @@ namespace Model
         public string Nome { get; set; }
         public string DataNasc { get; set; }       
         public string Endereco { get; set; }        
-
+        public int Ativo { get; set; }
+        public string AtivoString { get; set; }
     }
 }
