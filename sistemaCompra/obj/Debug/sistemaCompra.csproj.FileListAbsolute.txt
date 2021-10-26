@@ -63,3 +63,4 @@ C:\Users\admin\Documents\projetosINACIO\sistemaCompra\sistemaCompra\obj\Debug\si
 C:\Users\admin\Documents\projetosINACIO\sistemaCompra\sistemaCompra\obj\Debug\sistemaCompra.csproj.CopyComplete
 C:\Users\admin\Documents\projetosINACIO\sistemaCompra\sistemaCompra\obj\Debug\sistemaCompra.dll
 C:\Users\admin\Documents\projetosINACIO\sistemaCompra\sistemaCompra\obj\Debug\sistemaCompra.pdb
+C:\Users\admin\Documents\projetosINACIO\sistemaCompra\sistemaCompra\bin\Controller.dll.config

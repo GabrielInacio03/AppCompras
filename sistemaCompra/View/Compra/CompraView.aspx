@@ -42,7 +42,7 @@
                                     </td>
                                     <td class="col-md-2">                                    
                                         <asp:LinkButton  Text="Editar" runat="server" CommandArgument='<%# Eval("Id") %>' ID="Editar" CommandName="Editar" class="btn btn-primary"/>                                        
-                                        <asp:LinkButton Text="Excluir" runat="server" CommandArgument='<%# Eval("Id") %>' ID="excluir" CommandName="Excluir" CssClass="btn btn-danger" />   
+                                        <asp:LinkButton Text="Excluir" runat="server" CommandArgument='<%# Eval("Id") %>' ID="excluir" CommandName="Excluir" CssClass="btn btn-danger" />                                        
                                     </td>
                                     <td class="col-md-2">
                                         <p class="btn btn-primary" data-bs-toggle="collapse" href="#dadosItem" role="button" aria-expanded="false" aria-controls="collapseExample">Ver Lista</p>
@@ -65,6 +65,8 @@
                         <asp:Label runat="server" ID="LabelErro" class="alert-danger"/> 
                         <br />
                          <asp:LinkButton  Text="Adicionar" runat="server"  ID="Adicionar"  CommandArgument='<%# Eval("Id") %>' CommandName="Adicionar" class="btn btn-primary"/> 
+                         <asp:Button Text="Reset" runat="server" ID="reset" type="reset" class="btn btn-danger"/>
+                         
                         <br />
                         <table class="table">
                             <thead>
@@ -111,7 +113,5 @@
         </ItemTemplate>
      </asp:Repeater>      
    
-    
-
    
 </asp:Content>

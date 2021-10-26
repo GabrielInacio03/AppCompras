@@ -11,7 +11,7 @@ namespace Dao
 {
     public class CompraDao : Dao
     {
-        public void UpdateCompraItem(Model.ItemCompra item, int id, float valor)
+        public void UpdateCompraItem(Model.Compra compra, int id, float valor)
         {
             try
             {
@@ -24,11 +24,12 @@ namespace Dao
                 sql.Parameters.AddWithValue("@valor", valor);
                 sql.CommandType = System.Data.CommandType.StoredProcedure;
 
-                
-                sql.Parameters.Add(new SqlParameter("@codproduto", item.CodProduto));
-                sql.Parameters.Add(new SqlParameter("@qtd", item.Qtd));
-                sql.Parameters.Add(new SqlParameter("@subtot", item.SubTotal));
-                sql.Parameters.Add(new SqlParameter("@ativo", item.Ativo));
+                SqlParameter param = new SqlParameter();
+                param.ParameterName = "@items";
+                param.SqlDbType = System.Data.SqlDbType.Structured;
+                param.Value = preencherDataTable(compra.listaItens);
+                sql.Parameters.Add(param);
+
 
                 sql.ExecuteNonQuery();
                 conexao.Close();
@@ -70,8 +71,7 @@ namespace Dao
                 conexao.Open();
 
                 SqlCommand sql = conexao.CreateCommand();
-                sql.CommandText = "PROC_I_InserirCompra";
-                //sql.CommandText = "INSERT INTO compra(datacomp, valortot, codcliente) VALUES (@datacomp, @valortot, @codcliente);select SCOPE_IDENTITY (); ";
+                sql.CommandText = "PROC_I_InserirCompra";               
                 sql.CommandType = System.Data.CommandType.StoredProcedure;
 
 
@@ -83,8 +83,7 @@ namespace Dao
                 param.SqlDbType = System.Data.SqlDbType.Structured;
                 param.Value = preencherDataTable(compra.listaItens);
                 sql.Parameters.Add(param);
-
-                //sql.Parameters.Add(new SqlParameter("@items", (System.Data.SqlDbType)item.CodProduto, item.Qtd, (string)item.SubTotal.ToString()));
+            
 
                 sql.ExecuteNonQuery();
                 conexao.Close();

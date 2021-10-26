@@ -1,4 +1,5 @@
-﻿using Dao;
+﻿
+using Dao;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -109,12 +110,12 @@ namespace Controller
                 throw;
             }
         }
-        public void UpdateCompraItem(Model.ItemCompra item, int id, float valor)
+        public void UpdateCompraItem(Model.Compra compra, int id, float valor)
         {
             try
             {
                 CompraDao cdao = new CompraDao();
-                cdao.UpdateCompraItem(item, id, valor);
+                cdao.UpdateCompraItem(compra, id, valor);                
             }
             catch (Exception)
             {

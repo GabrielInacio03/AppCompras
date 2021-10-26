@@ -83,6 +83,13 @@ namespace sistemaCompra.View.Compra
             try
             {
 
+               
+                string codigoItem = e.CommandArgument.ToString();
+                List<Model.ItemCompra> itemListaCompra = BuscarItensCompra(int.Parse(codigoItem));
+
+
+
+
                 Model.Compra c = new Model.Compra();
                 Model.ItemCompra i = new Model.ItemCompra();
                 List<Model.Compra> compras = new List<Model.Compra>();
@@ -93,43 +100,48 @@ namespace sistemaCompra.View.Compra
                 Repeater rc = (Repeater)e.Item.FindControl("RepeaterCompras");
 
                 if (e.CommandName.ToString() == "Excluir")
-                {
-                    string codigoComp = e.CommandArgument.ToString();
-                   
-
-                    c = compras.Where(x => x.Id == int.Parse(codigoComp)).FirstOrDefault();
-                    cController.Excluir(int.Parse(codigoComp));
+                {                   
+                    c = compras.Where(x => x.Id == int.Parse(codigoItem)).FirstOrDefault();
+                    cController.Excluir(int.Parse(codigoItem));
                     compras.Remove(c);
 
                     RepeaterCompras.DataSource = compras;
-                    RepeaterCompras.DataBind();
+                    RepeaterCompras.DataBind();                   
                 }
                 else if(e.CommandName.ToString() == "Editar")
                 {
-                    string codigoItem = e.CommandArgument.ToString();
-                    //Repeater r = (Repeater)e.Item.FindControl("RepeaterListaItens");
-                    List<Model.ItemCompra> listaItem = BuscarItensCompra(int.Parse(codigoItem));
+                    List<Model.ItemCompra> salvarItem = new List<Model.ItemCompra>();
                     Model.Compra compra = new Model.Compra();
                     CompraController compraItem = new CompraController();
+                    c = compras.Where(x => x.Id == int.Parse(codigoItem)).FirstOrDefault();
+
+                    float valorTotalNovo = itemListaCompra.Sum(x => x.SubTotal + compra.ValorTot);
+
+                    Guid g = Guid.NewGuid();
+                    i.CodCompra = int.Parse(codigoItem);
+                    i.GuidCod = g;
+                    i.CodProduto = int.Parse(drop.Text);
+                    i.Qtd = int.Parse(valor.Text);
+
+                    float valorProduto = BuscarValor(i.CodProduto);
+
+                    i.SubTotal = valorProduto * i.Qtd;
 
 
-                    float valorTotalNovo = listaItem.Sum(x => x.SubTotal + compra.ValorTot);
-                    compraItem.UpdateCompra(int.Parse(codigoItem), valorTotalNovo);
+                    salvarItem.Add(i);
+                    compra.listaItens = salvarItem;
 
                     if (i.Ativo == 0)
-                    {                        
-                        
-                        compraItem.UpdateCompraItem(i, int.Parse(codigoItem), valorTotalNovo);                        
+                    {
+                        compraItem.UpdateCompraItem(compra, int.Parse(codigoItem), valorTotalNovo);                       
+
                     }
 
+                  
 
                 }
                 else
-                {
-                    string codigoItem = e.CommandArgument.ToString();
-                    List<Model.ItemCompra> itemListaCompra = BuscarItensCompra(int.Parse(codigoItem));
-                    
-
+                {                    
                     Guid g = Guid.NewGuid();
                     i.CodCompra = int.Parse(codigoItem);
                     i.GuidCod = g;
@@ -139,17 +151,13 @@ namespace sistemaCompra.View.Compra
                     float valorProduto = BuscarValor(i.CodProduto);
 
                     i.SubTotal = valorProduto * i.Qtd;
-                   
 
-                    itemListaCompra.Add(i);
-                    r.DataSource = itemListaCompra;
-                    r.DataBind();
-
-
+                    itemListaCompra.Add(i);                  
 
 
                 }
 
+               
             }
             catch (Exception)
             {
@@ -157,10 +165,7 @@ namespace sistemaCompra.View.Compra
                 throw;
             }
         }
-        /*
-         CRIAR FUNÇÃO QUE TENHA COMO RETORNO UMA LISTA DOS ITENS ADICIONADOS NA COMPRA
-         
-         */
+        
         
         protected void RepeaterCompras_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
